@@ -19,9 +19,7 @@ public class TestController {
         try {
             Users user = new Users();
             user.setId(2);
-            user.setName("chingment222");
-            user.setName("c « « «");
-            user.setAge(32);
+            user.setName("chingment");
             usersService.addUser(user);
         }
         catch (Exception ex){
