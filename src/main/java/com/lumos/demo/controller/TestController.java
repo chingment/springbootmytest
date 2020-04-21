@@ -20,6 +20,7 @@ public class TestController {
             Users user = new Users();
             user.setId(2);
             user.setName("chingment222");
+            user.setName("c « « «");
             user.setAge(32);
             usersService.addUser(user);
         }
