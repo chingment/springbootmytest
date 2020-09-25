@@ -1,11 +1,15 @@
 package com.lumos.demo.controller;
 
 import com.lumos.demo.pojo.Users;
+import com.lumos.demo.service.OrderService;
 import com.lumos.demo.service.UsersService;
+import com.lumos.demo.utils.CustomResult;
+import com.lumos.demo.utils.CustomResultUtil;
+import com.oracle.tools.packager.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.temporal.ChronoUnit;
 
 @RestController
 public class TestController {
@@ -13,9 +17,13 @@ public class TestController {
     @Autowired
     private UsersService usersService;
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String hello() {
+    @Autowired
+    private OrderService orderService;
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public CustomResult hello() {
+
+        int a=1/0;
         try {
             Users user = new Users();
             user.setId(2);
@@ -26,11 +34,25 @@ public class TestController {
         catch (Exception ex){
 
             String s=ex.getMessage();
-            System.console().printf("dsdd");
+            System.out.printf("dsdd");
         }
 
         String s="333ddd3gggg";
         String b="dsda3333";
-        return s;
+
+        return CustomResultUtil.success();
+    }
+
+
+    @RequestMapping("/createWrongOrder/{sid}")
+    @ResponseBody
+    public String createWrongOrder(@PathVariable int sid) {
+        Log.info("购买物品编号sid=[{"+sid+"}]");
+
+
+        orderService.createWrongOrder(sid);
+
+        int id=0;
+        return String.valueOf(id);
     }
 }
